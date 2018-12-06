@@ -17,7 +17,14 @@ def has_two_or_three(id_str):
 		three = True
 	return (two,three)
 
-def log_inputs():
+def log_ids():
+	ids = []
+	for row in open('002_inputs.txt'):
+		row = row.rstrip()
+		ids.append(row)
+	return(ids)
+
+def log_twos_and_threes():
 	twos = 0
 	threes = 0
 	for row in open('002_inputs.txt'):
@@ -30,15 +37,39 @@ def log_inputs():
 	return (twos,threes)
 
 
+ids = log_ids()
+test_ids = ['abcde', 'fghij', 'klmno', 'pqrst', 'fguij', 'axcye', 'wvxyz']
 
+# print(ids[:30])
 str1 = 'kqnxdenujwcsthbmgvlooflarp'
 str2 = 'kqzxdknpjwcsthwmgvyioflarp'
 
 # print(has_two_or_three(str1))
 # print(has_two_or_three(str2))
 
-# twos,threes = log_inputs()
+# twos,threes = log_twos_and_threes()
 # print(twos,threes)
 # print(twos * threes)
 
 
+def compare_strings(str1,str2):
+	same = True
+	for i in range(len(str1)):
+		if str1[i] != str2[i] and same:
+			same = False
+		elif str1[i] != str2[i]:
+			return False
+	if not same:
+		return True
+
+# print(compare_strings("fghij","fguij"))
+
+def compare_all(ids):
+	for i,str1 in enumerate(ids):
+		for j,str2 in enumerate(ids[i:]):
+			# print(i,j,str1,str2)
+			if compare_strings(str1,str2):
+				return (str1,str2)
+
+str1,str2 = (compare_all(ids))
+print(str1,str2)
